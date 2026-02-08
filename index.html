@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaishnavi x You</title>
+    <style>
+        :root {
+            --accent: #ff0050;
+            --bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #terminal {
+            background: #000;
+            border: 2px solid var(--accent);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 0, 80, 0.3);
+            position: relative;
+        }
+
+        h1 { color: var(--accent); letter-spacing: 1px; font-size: 1.8rem; }
+        p { color: #ccc; line-height: 1.5; }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background: var(--accent);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        .hidden { display: none; }
+
+        .btn-group {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        #confirmBtn { background: var(--accent); color: white; }
+        #confirmBtn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px var(--accent); }
+
+        #cancelBtn { background: transparent; color: #555; border: 1px solid #333; }
+
+        #finalScreen {
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .status-tag {
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal">
+        <div id="step1">
+            <div class="status-tag">[ SYSTEM ACTIVE: PROPOSE_DAY_MODE ]</div>
+            <h1 id="typewriter"></h1><span class="cursor">&nbsp;</span>
+            
+            <div id="options" class="hidden">
+                <p>You’re already the best thing in my life, so let’s just make it official for the record books.</p>
+                <p><strong>Vaishnavi, do you accept your lifetime position as my Queen?</strong></p>
+                
+                <div class="btn-group">
+                    <button id="confirmBtn" onclick="lockedIn()">Accept</button>
+                    <button id="cancelBtn" onmouseover="dodge()">Decline</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="finalScreen" class="hidden">
+            <h1 style="font-size: 2.5rem;">ACCESS GRANTED ❤️</h1>
+            <p>Congratulations, <strong>Vaishnavi</strong>.</p>
+            <p>You have successfully renewed your status as the only person I want by my side.</p>
+            <p style="margin-top: 25px; color: var(--accent); font-weight: bold; font-size: 1.2rem;">
+                Prepare for another year of being loved unconditionally.
+            </p>
+            <div style="font-size: 40px; margin-top: 20px;">💍🔒✨</div>
+        </div>
+    </div>
+
+    <script>
+        const text = "Checking database... \nFound: Vaishnavi \nStatus: My favorite person... \nAction: Locking in forever...";
+        let i = 0;
+        
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 35);
+            } else {
+                document.getElementById("options").classList.remove("hidden");
+            }
+        }
+
+        window.onload = typeWriter;
+
+        function dodge() {
+            const btn = document.getElementById('cancelBtn');
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * 70 + 15 + '%';
+            btn.style.top = Math.random() * 70 + 15 + '%';
+            btn.innerText = "System Error";
+        }
+
+        function lockedIn() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('finalScreen').classList.remove('hidden');
+            document.getElementById('terminal').style.borderColor = "#00ff00";
+            document.body.style.background = "#051105"; // Subtle green shift
+        }
+    </script>
+</body>
+</html>
